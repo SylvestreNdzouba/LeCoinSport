@@ -35,6 +35,9 @@ class Produit
     #[ORM\Column(nullable: true)]
     private ?int $id_categorie = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $id_user_1 = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Produit
     public function setIdCategorie(?int $id_categorie): self
     {
         $this->id_categorie = $id_categorie;
+
+        return $this;
+    }
+
+    public function getIdUser1(): ?int
+    {
+        return $this->id_user_1;
+    }
+
+    public function setIdUser1(?int $id_user_1): self
+    {
+        $this->id_user_1 = $id_user_1;
 
         return $this;
     }

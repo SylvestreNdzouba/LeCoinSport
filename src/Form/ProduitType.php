@@ -4,6 +4,9 @@ namespace App\Form;
 
 use App\Entity\Produit;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,12 +16,11 @@ class ProduitType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('description')
-            ->add('prix')
-            ->add('image')
-            ->add('id_user')
-            ->add('id_commande')
-            ->add('id_categorie')
+            ->add('description', type:TextareaType::class)
+            ->add('prix', type:NumberType::class)
+            ->add('image', type:FileType::class
+            )
+            
         ;
     }
 

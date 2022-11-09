@@ -29,6 +29,11 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Votre annonce a bien été crée !');
+        }
+        
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $produitRepository->save($produit, true);
 
             return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
