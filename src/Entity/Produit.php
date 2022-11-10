@@ -126,16 +126,4 @@ class Produit
 
         return $this;
     }
-
-    public function getIdUser1(): ?int
-    {
-        return $this->id_user_1;
-    }
-
-    public function setIdUser1(?int $id_user_1): self
-    {
-        $this->id_user_1 = $id_user_1;
-
-        return $this;
-    }
 }
