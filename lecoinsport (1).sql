@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 25 oct. 2022 à 20:14
+-- Généré le : lun. 31 oct. 2022 à 10:37
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS `acheteur` (
   `tel` int(11) NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `id_ville` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_ville` (`id_ville`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -63,7 +64,9 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_paiement` int(11) DEFAULT NULL,
   `id_acheteur` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_paiement` (`id_paiement`),
+  UNIQUE KEY `id_acheteur` (`id_acheteur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -93,7 +96,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20221025174638', '2022-10-25 17:46:46', 47),
 ('DoctrineMigrations\\Version20221025174813', '2022-10-25 17:48:20', 49),
 ('DoctrineMigrations\\Version20221025174904', '2022-10-25 17:49:48', 56),
-('DoctrineMigrations\\Version20221025175043', '2022-10-25 17:50:50', 49);
+('DoctrineMigrations\\Version20221025175043', '2022-10-25 17:50:50', 49),
+('DoctrineMigrations\\Version20221031100049', '2022-10-31 10:01:19', 257);
 
 -- --------------------------------------------------------
 
@@ -106,7 +110,9 @@ CREATE TABLE IF NOT EXISTS `est_livre` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_commande` int(11) DEFAULT NULL,
   `id_livraison` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_commande` (`id_commande`),
+  UNIQUE KEY `id_livraison` (`id_livraison`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -172,7 +178,12 @@ CREATE TABLE IF NOT EXISTS `produit` (
   `id_user` int(11) DEFAULT NULL,
   `id_commande` int(11) DEFAULT NULL,
   `id_categorie` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `id_user_1` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_user` (`id_user`),
+  UNIQUE KEY `id_commande` (`id_commande`),
+  UNIQUE KEY `id_categorie` (`id_categorie`),
+  UNIQUE KEY `id_user_1` (`id_user_1`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -207,6 +218,39 @@ CREATE TABLE IF NOT EXISTS `ville` (
   `region` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `acheteur`
+--
+ALTER TABLE `acheteur`
+  ADD CONSTRAINT `acheteur_ibfk_1` FOREIGN KEY (`id_ville`) REFERENCES `ville` (`id`);
+
+--
+-- Contraintes pour la table `commande`
+--
+ALTER TABLE `commande`
+  ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`id_paiement`) REFERENCES `mode_paiement` (`id`),
+  ADD CONSTRAINT `commande_ibfk_2` FOREIGN KEY (`id_acheteur`) REFERENCES `acheteur` (`id`);
+
+--
+-- Contraintes pour la table `est_livre`
+--
+ALTER TABLE `est_livre`
+  ADD CONSTRAINT `est_livre_ibfk_1` FOREIGN KEY (`id_livraison`) REFERENCES `livraison` (`id`),
+  ADD CONSTRAINT `est_livre_ibfk_2` FOREIGN KEY (`id_commande`) REFERENCES `commande` (`id`);
+
+--
+-- Contraintes pour la table `produit`
+--
+ALTER TABLE `produit`
+  ADD CONSTRAINT `produit_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id`),
+  ADD CONSTRAINT `produit_ibfk_2` FOREIGN KEY (`id_user_1`) REFERENCES `utilisateur` (`id`),
+  ADD CONSTRAINT `produit_ibfk_3` FOREIGN KEY (`id_commande`) REFERENCES `commande` (`id`),
+  ADD CONSTRAINT `produit_ibfk_4` FOREIGN KEY (`id_categorie`) REFERENCES `categorie_produit` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
