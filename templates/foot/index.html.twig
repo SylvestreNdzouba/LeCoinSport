@@ -15,9 +15,13 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 12 Avenue de Grandmont</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-
-						<li><a href="{{ path('app_login') }}"> Connexion</a></li>
-						<li><a href="{{ path('app_users') }}"><i class="fa fa-user-o"></i> My Account</a></li>
+						{% if app.user %}
+                            <li><a href="{{ path('app_logout') }}"> Logout</a></li>
+                            <li><a href="{{ path('app_users') }}"><i class="fa fa-user-o"></i> My Account</a></li>
+                        {% else %}
+                            <li><a href="{{ path('app_login') }}"> Connexion</a></li>
+                            <li><a href="{{ path('app_users') }}"><i class="fa fa-user-o"></i> My Account</a></li>
+                        {% endif %}
 					</ul>
 				</div>
 			</div>
