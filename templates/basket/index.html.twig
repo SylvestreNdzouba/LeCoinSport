@@ -18,7 +18,9 @@
 						<!-- <li><a href="#"><i class="fa fa-dollar"></i> Connexion </a></li>
 						<li><a href="#"><i class="fa fa-user-o"></i> Inscription</a></li>
 						<li><a href="#"><i class="fa fa-euro"></i> Euro </a></li> -->
-						<li><a href="#"><i class="fa fa-user-o"></i> Connexion</a></li>
+						<li><a href="{{ path('app_login') }}"> Connexion</a></li>
+						<li><a href="{{ path('app_users') }}"><i class="fa fa-user-o"></i> My Account</a></li>
+
 					</ul>
 				</div>
 			</div>
@@ -34,7 +36,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="#" class="logo">
+								<a href="{{ path('app_home') }}" class="logo">
 									<img src="{{ asset('assets/img/logo2.png') }}" alt="" height="50%" width="80%">
 								</a>
 							</div>
@@ -276,7 +278,7 @@
 								<h3 class="footer-title">Information</h3>
 								<ul class="footer-links">
 									<li><a href="#">About Us</a></li>
-									<li><a href="#">Contact Us</a></li>
+									<li><a href="{{ path('app_contact') }}">Contact Us</a></li>
 									<li><a href="#">Privacy Policy</a></li>
 									<li><a href="#">Orders and Returns</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
@@ -288,7 +290,7 @@
 							<div class="footer">
 								<h3 class="footer-title">Service</h3>
 								<ul class="footer-links">
-									<li><a href="#">My account</a></li>
+									<li><a href="{{ path('app_users') }}">My account</a></li>
 									<li><a href="#">My purchases</a></li>
 									<li><a href="#">My reservation</a></li>
 									<li><a href="#">Track my order</a></li>

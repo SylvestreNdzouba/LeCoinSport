@@ -35,7 +35,7 @@ class ProduitController extends AbstractController
             $this->addFlash('success', 'Votre annonce a bien été crée !');
         }
 
-            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
             #return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         
         }
