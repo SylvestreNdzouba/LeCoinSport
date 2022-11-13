@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LeCoinSport - Modifier mon profil{% endblock %}
+
+{% block body %}
+    <div class="grix xs4 container">
+        <div><h2>Modification du profil de {{ app.user.nom}} {{ app.user.prenom}}</h2></div>
+       {{ form(form) }}
+    </div>
+{% endblock %}
